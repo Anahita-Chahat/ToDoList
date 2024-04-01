@@ -1,0 +1,19 @@
+const toDo1 = {
+    title: 'To Do',
+    items: {
+        1: "Annyeonghaseyo!",
+        2: "Yoo!"
+    }
+}
+console.log(toDo1)
+
+
+
+const toDo2 = [
+    'ughh too many dumb questions', 
+    'Gotta learn the CLI🥹'
+]
+
+for(var i = 0; i < toDo.length; i++) {
+    console.log(i + 1 + ': ' + toDo2[i])
+}
