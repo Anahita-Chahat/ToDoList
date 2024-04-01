@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>My To Do List</title>
+    <!-- 28th March, 2024 -->
+
+    <style>
+        main {
+            width: 100%;
+            height: 100%;
+            padding: 0 10px;
+        }
+    
+        .container {
+            max-width: 90%;
+            padding: 10px 0;
+            height: 100%;
+        }
+    
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 100%;
+            }
+        }
+    
+        .title {
+            font-size: 50px;
+            padding: 0;
+            margin-bottom: 80px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-weight: 700;
+            text-align: center;
+        }
+
+
+
+
+    
+
+
+
+        .toDo-div, .toDo-div2, .toDo-div3, .toDo-div4, .toDo-div5, .toDo-div6, .toDo-div7, .toDo-div8, .toDo-div9 {
+            width: 100%;
+            height: 100%;
+            padding: 10px 0;
+            border-radius: 30px;
+            margin-bottom: 50px;     
+        }
+    
+        .toDo-div label, .toDo-div2 label, .toDo-div3 label, .toDo-div4 label, .toDo-div5 label, .toDo-div6 label, .toDo-div7 label, .toDo-div8 label, .toDo-div9 label, .toDo-div10 label {
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+        }
+    
+        .toDo-plus, .toDo-plus2, .toDo-plus3, .toDo-plus4, .toDo-plus5, .toDo-plus6, .toDo-plus7,
+        .toDo-plus8, .toDo-plus9, .toDo-plus10 {
+            background-color: #ffffff;
+            border: 3px solid gray;
+            font-weight: 900;
+            font-size: 40px;
+            height: 40px;
+            width: 40px;
+            position: relative;
+            padding: 0;
+            border-radius: 50%;
+            color: gray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        .toDo-plus p, .toDo-plus2 p, .toDo-plus3 p, .toDo-plus4 p, .toDo-plus5 p, .toDo-plus6 p, .toDo-plus7 p, .toDo-plus8 p, .toDo-plus9 p, .toDo-plus10 p {
+            padding: 0;
+            margin-bottom: 0;
+            margin-top: -9px;
+        }
+    
+        .toDo, .toDo2, .toDo3, .toDo4, .toDo5, .toDo6, .toDo7, .toDo8, .toDo9, .toDo10{
+            border: none;
+            outline: none;
+            padding-left: 0;
+            border-bottom: 2px solid gray;
+            min-width: 400px;
+            padding-top: 0;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 22px;
+            font-weight: 600;
+            transition: 0.3s;
+            height: auto;
+            height: 40px !important;
+            resize: none;
+            position: relative;
+        }
+    
+        .toDo::placeholder, .toDo2::placeholder, .toDo3::placeholder, .toDo4::placeholder, .toDo5::placeholder, .toDo6::placeholder, .toDo7::placeholder, .toDo8::placeholder, .toDo9::placeholder, .toDo10::placeholder {
+            font-family: sans-serif;
+            font-size: 19px;
+            font-weight: 500;
+        }
+    
+        .toDo:focus {
+            animation-name: toDo;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+            width: calc(100% - 50px);
+        }
+    
+        @keyframes toDo {
+            from {
+                width: 400px;
+            }
+    
+            to {
+                width: calc(100% - 50px) !important;
+            }
+        }
+
+        .toDo-minus, .toDo-minus2, .toDo-minus3, .toDo-minus4, .toDo-minus5, .toDo-minus6, .toDo-minus7, .toDo-minus8, .toDo-minus9, .toDo-minus10 {
+            color: #ffffff;
+            font-size: 25px;
+            font-weight: 600;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        #toDoLabel, #toDoLabel2, #toDoLabel3, #toDoLabel4, #toDoLabel5, #toDoLabel6, #toDoLabel7, #toDoLabel8, #toDoLabel9, #toDoLabel10 {
+            display: flex;
+            align-items: center;
+            display: none;
+        }
+
+        #toDoToDo, #toDoToDo2, #toDoToDo3, #toDoToDo4, #toDoToDo5, #toDoToDo6, #toDoToDo7, #toDoToDo8, #toDoToDo9, #toDoToDo10 {
+            min-width: 400px;
+            height: auto;
+            min-height: 50px !important;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            outline: none;
+            background: #82B29A;
+            color: #ffffff !important;
+            font-weight: 600;
+            font-family: cursive;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+        }
+
+        #toDoLabel p, #toDoLabel2 p, #toDoLabel3 p, #toDoLabel4 p, #toDoLabel5 p, #toDoLabel6 p, #toDoLabel7 p, #toDoLabel8 p, #toDoLabel9 p, #toDoLabel10 p{
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 30px;
+            margin: 0;
+            margin-left: -50px;
+            position: relative;
+        }
+
+
+
+
+
+
+        .toDo2:focus {
+            animation-name: toDo2;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+            width: calc(100% - 50px);
+        }
+    
+        @keyframes toDo2 {
+            from {
+                width: 400px;
+            }
+    
+            to {
+                width: calc(100% - 50px) !important;
+            }
+        }
+
+        #toDoToDo2 {
+            background-color: #3C405B;
+        }
+
+
+
+
+    
+
+        .toDo3:focus {
+            animation-name: toDo3;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+            width: calc(100% - 50px);
+        }
+    
+        @keyframes toDo3 {
+            from {
+                width: 400px;
+            }
+    
+            to {
+                width: calc(100% - 50px) !important;
+            }
+        }
+
+        #toDoToDo3 {
+            background-color: #DF7A5E;
+        }
+
+
+
+
+
+        .toDo4:focus {
+            animation-name: toDo4;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+            width: calc(100% - 50px);
+        }
+    
+        @keyframes toDo4 {
+            from {
+                width: 400px;
+            }
+    
+            to {
+                width: calc(100% - 50px) !important;
+            }
+        }
+
+        #toDoToDo4 {
+            background-color: cornflowerblue;
+        }
+
+
+
+
+    
+        .toDo5:focus {
+            animation-name: toDo5;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+            width: calc(100% - 50px);
+        }
+    
+        @keyframes toDo5 {
+            from {
+                width: 400px;
+            }
+    
+            to {
+                width: calc(100% - 50px) !important;
+            }
+        }
+
+        #toDoToDo5 {
+            background-color:  #BE4C54;
+        }
+
+
+
+
+      
+        .toDo6:focus {
+            animation-name: toDo6;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+            width: calc(100% - 50px);
+        }
+    
+        @keyframes toDo6 {
+            from {
+                width: 400px;
+            }
+    
+            to {
+                width: calc(100% - 50px) !important;
+            }
+        }
+
+        #toDoToDo6 {
+            background-color: #895b37;
+        }
+
+
+
+    
+        .toDo7:focus {
+            animation-name: toDo7;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+            width: calc(100% - 50px);
+        }
+    
+        @keyframes toDo7 {
+            from {
+                width: 400px;
+            }
+
+            to {
+                width: calc(100% - 50px) !important;
+            }
+        }
+
+        #toDoToDo7 {
+            background-color:  #60A09F;
+        }
+
+
+
+    
+        .toDo8:focus {
+            animation-name: toDo8;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+            width: calc(100% - 50px);
+        }
+    
+        @keyframes toDo8 {
+            from {
+                width: 400px;
+            }
+    
+            to {
+                width: calc(100% - 50px) !important;
+            }
+        }
+
+
+        #toDoToDo8 {
+            background-color:  #02647E;
+        }
+
+
+
+
+
+        .toDo9:focus {
+            animation-name: toDo9;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+            width: calc(100% - 50px);
+        }
+    
+        @keyframes toDo9 {
+            from {
+                width: 400px;
+            }
+    
+            to {
+                width: calc(100% - 50px) !important;
+            }
+        }
+
+        #toDoToDo9 {
+            background-color:  #D6AAA3;
+        }
+
+
+
+
+        .toDo10:focus {
+            animation-name: toDo10;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+            width: calc(100% - 50px);
+        }
+    
+        @keyframes toDo10 {
+            from {
+                width: 400px;
+            }
+    
+            to {
+                width: calc(100% - 50px) !important;
+            }
+        }
+
+        #toDoToDo10 {
+            background-color: #B710BB;
+        }
+    </style>
+    
+</head>
+<body>
+    <main>
+        <div class="container">
+
+            <h1 class="title">My To Do List</h1>
+
+            <!-- First to-do div -->
+            <div class="toDo-div">
+               <label id="label">
+                    <span class="toDo-plus" id="plus"><p>+</p></span><textarea id="toDo" class="toDo" placeholder="Write Down Your To-Do's" oninput="autoResize(this)" onblur="showInput()"></textarea>
+               </label>
+
+               <label id="toDoLabel">
+                    <input id="toDoToDo" disabled><p onclick="hide()">✕</p>
+               </label>
+            </div>
+
+
+
+
+            
+            <!-- Second to-do div -->
+            <div class="toDo-div2">
+               <label id="label2">
+                    <span class="toDo-plus2" id="plus2"><p>+</p></span><textarea id="toDo2" class="toDo2" placeholder="Write Down Your To-Do's" oninput="autoResize2(this)" onblur="showInput2()"></textarea>
+               </label>
+
+               <label id="toDoLabel2">
+                    <input id="toDoToDo2" disabled><p onclick="hide2()">✕</p>
+               </label>
+            </div>
+
+
+
+
+
+            <!-- third to-do div -->
+            <div class="toDo-div3">
+               <label id="label3">
+                    <span class="toDo-plus3" id="plus3"><p>+</p></span><textarea id="toDo3" class="toDo3" placeholder="Write Down Your To-Do's" oninput="autoResize3(this)" onblur="showInput3()"></textarea>
+               </label>
+
+               <label id="toDoLabel3">
+                    <input id="toDoToDo3" disabled><p onclick="hide3()">✕</p>
+               </label>
+            </div>
+
+
+
+
+
+            <!-- forth to-do div -->
+            <div class="toDo-div4">
+               <label id="label4">
+                    <span class="toDo-plus4" id="plus4"><p>+</p></span><textarea id="toDo4" class="toDo4" placeholder="Write Down Your To-Do's" oninput="autoResize4(this)" onblur="showInput4()"></textarea>
+               </label>
+
+               <label id="toDoLabel4">
+                    <input id="toDoToDo4" disabled><p onclick="hide4()">✕</p>
+               </label>
+            </div>
+
+
+
+
+
+            <!-- fifth to-do div -->
+            <div class="toDo-div5">
+               <label id="label5">
+                    <span class="toDo-plus5" id="plus5"><p>+</p></span><textarea id="toDo5" class="toDo5" placeholder="Write Down Your To-Do's" oninput="autoResize5(this)" onblur="showInput5()"></textarea>
+               </label>
+
+               <label id="toDoLabel5">
+                    <input id="toDoToDo5" disabled><p onclick="hide5()">✕</p>
+               </label>
+            </div>
+
+
+
+
+
+            <!-- sixth to-do div -->
+            <div class="toDo-div6">
+               <label id="label6">
+                    <span class="toDo-plus6" id="plus6"><p>+</p></span><textarea id="toDo6" class="toDo6" placeholder="Write Down Your To-Do's" oninput="autoResize6(this)" onblur="showInput6()"></textarea>
+               </label>
+
+               <label id="toDoLabel6">
+                    <input id="toDoToDo6" disabled><p onclick="hide6()">✕</p>
+               </label>
+            </div>
+
+
+
+
+
+            <!-- seventh to-do div -->
+            <div class="toDo-div7">
+               <label id="label7">
+                    <span class="toDo-plus7" id="plus7"><p>+</p></span><textarea id="toDo7" class="toDo7" placeholder="Write Down Your To-Do's" oninput="autoResize7(this)" onblur="showInput7()"></textarea>
+               </label>
+
+               <label id="toDoLabel7">
+                    <input id="toDoToDo7" disabled><p onclick="hide7()">✕</p>
+               </label>
+            </div>
+
+
+
+
+
+            <!-- eighth to-do div -->
+            <div class="toDo-div8">
+               <label id="label8">
+                    <span class="toDo-plus8" id="plus8"><p>+</p></span><textarea id="toDo8" class="toDo8" placeholder="Write Down Your To-Do's" oninput="autoResize8(this)" onblur="showInput8()"></textarea>
+               </label>
+
+               <label id="toDoLabel8">
+                    <input id="toDoToDo8" disabled><p onclick="hide8()">✕</p>
+               </label>
+            </div>
+
+
+
+
+
+            <!-- ninth to-do div -->
+            <div class="toDo-div9">
+               <label id="label9">
+                    <span class="toDo-plus9" id="plus9"><p>+</p></span><textarea id="toDo9" class="toDo9" placeholder="Write Down Your To-Do's" oninput="autoResize9(this)" onblur="showInput9()"></textarea>
+               </label>
+
+               <label id="toDoLabel9">
+                    <input id="toDoToDo9" disabled><p onclick="hide9()">✕</p>
+               </label>
+            </div>
+
+
+
+
+
+            <!-- tenth to-do div -->
+            <div class="toDo-div10">
+               <label id="label10">
+                    <span class="toDo-plus10" id="plus10"><p>+</p></span><textarea id="toDo10" class="toDo10" placeholder="Write Down Your To-Do's" oninput="autoResize10(this)" onblur="showInput10()"></textarea>
+               </label>
+
+               <label id="toDoLabel10">
+                    <input id="toDoToDo10" disabled><p onclick="hide10()">✕</p>
+               </label>
+            </div>
+
+
+        </div>
+    </main>
+
+
+
+
+
+
+
+
+    <script>
+        function autoResize(textarea) {
+            const words = textarea.value.trim().split(/\s+/);
+            const wordWidth = 10;
+            const spaceWidth = 0;
+            const minWidth = 400;
+    
+            let width = minWidth;
+    
+            words.forEach(word => {
+                width += word.length * wordWidth
+                width += spaceWidth
+            });
+    
+            width = Math.max(width, minWidth);
+    
+            document.getElementById('toDoToDo').style.width = width + 'px';
+            document.getElementById('toDoToDo').value = textarea.value;
+        }
+    
+        function showInput() {
+            var textArea = document.getElementById('toDo');
+            if (textArea.value.length > 0) {
+                document.getElementById('toDoLabel').style.display = 'flex';
+                document.getElementById('label').style.display = 'none';
+            }
+        }
+    
+        function hide() {
+            document.getElementById('toDoLabel').style.display = 'none';
+            document.getElementById('label').style.display = 'flex';
+        }
+
+
+
+
+        function overflow(toDoToDo){
+            if (toDoToDo === scroll ) {
+                Document.getElementById('toDoToDo').style.height = "100px";
+            }
+        }
+
+
+        
+
+        // Functions for second to-do div
+        function autoResize2(textarea) {
+            const words = textarea.value.trim().split(/\s+/);
+            const wordWidth = 10;
+            const spaceWidth = 0;
+            const minWidth = 400;
+    
+            let width = minWidth;
+    
+            words.forEach(word => {
+                width += word.length * wordWidth
+                width += spaceWidth
+            });
+    
+            width = Math.max(width, minWidth);
+    
+            document.getElementById('toDoToDo2').style.width = width + 'px';
+            document.getElementById('toDoToDo2').value = textarea.value;
+        }
+    
+        function showInput2() {
+            var textArea = document.getElementById('toDo2');
+            if (textArea.value.length > 0) {
+                document.getElementById('toDoLabel2').style.display = 'flex';
+                document.getElementById('label2').style.display = 'none';
+            }
+        }
+    
+        function hide2() {
+            document.getElementById('toDoLabel2').style.display = 'none';
+            document.getElementById('label2').style.display = 'flex';
+        }
+
+
+
+
+
+
+
+
+
+        // Functions for third to-do div
+        function autoResize3(textarea) {
+            const words = textarea.value.trim().split(/\s+/);
+            const wordWidth = 10;
+            const spaceWidth = 0;
+            const minWidth = 400;
+    
+            let width = minWidth;
+    
+            words.forEach(word => {
+                width += word.length * wordWidth
+                width += spaceWidth
+            });
+    
+            width = Math.max(width, minWidth);
+    
+            document.getElementById('toDoToDo3').style.width = width + 'px';
+            document.getElementById('toDoToDo3').value = textarea.value;
+        }
+    
+        function showInput3() {
+            var textArea = document.getElementById('toDo3');
+            if (textArea.value.length > 0) {
+                document.getElementById('toDoLabel3').style.display = 'flex';
+                document.getElementById('label3').style.display = 'none';
+            }
+        }
+    
+        function hide3() {
+            document.getElementById('toDoLabel3').style.display = 'none';
+            document.getElementById('label3').style.display = 'flex';
+        }
+
+
+
+
+
+
+
+
+
+        // Functions for forth to-do div
+        function autoResize4(textarea) {
+            const words = textarea.value.trim().split(/\s+/);
+            const wordWidth = 10;
+            const spaceWidth = 0;
+            const minWidth = 400;
+    
+            let width = minWidth;
+    
+            words.forEach(word => {
+                width += word.length * wordWidth
+                width += spaceWidth
+            });
+    
+            width = Math.max(width, minWidth);
+    
+            document.getElementById('toDoToDo4').style.width = width + 'px';
+            document.getElementById('toDoToDo4').value = textarea.value;
+        }
+    
+        function showInput4() {
+            var textArea = document.getElementById('toDo4');
+            if (textArea.value.length > 0) {
+                document.getElementById('toDoLabel4').style.display = 'flex';
+                document.getElementById('label4').style.display = 'none';
+            }
+        }
+    
+        function hide4() {
+            document.getElementById('toDoLabel4').style.display = 'none';
+            document.getElementById('label4').style.display = 'flex';
+        }
+
+
+
+
+
+
+
+
+
+        // Functions for fifth to-do div
+        function autoResize5(textarea) {
+            const words = textarea.value.trim().split(/\s+/);
+            const wordWidth = 10;
+            const spaceWidth = 0;
+            const minWidth = 400;
+    
+            let width = minWidth;
+    
+            words.forEach(word => {
+                width += word.length * wordWidth
+                width += spaceWidth
+            });
+    
+            width = Math.max(width, minWidth);
+    
+            document.getElementById('toDoToDo5').style.width = width + 'px';
+            document.getElementById('toDoToDo5').value = textarea.value;
+        }
+    
+        function showInput5() {
+            var textArea = document.getElementById('toDo5');
+            if (textArea.value.length > 0) {
+                document.getElementById('toDoLabel5').style.display = 'flex';
+                document.getElementById('label5').style.display = 'none';
+            }
+        }
+    
+        function hide5() {
+            document.getElementById('toDoLabel5').style.display = 'none';
+            document.getElementById('label5').style.display = 'flex';
+        }
+
+
+
+
+
+
+
+
+
+        // Functions for sixth to-do div
+        function autoResize6(textarea) {
+            const words = textarea.value.trim().split(/\s+/);
+            const wordWidth = 10;
+            const spaceWidth = 0;
+            const minWidth = 400;
+    
+            let width = minWidth;
+    
+            words.forEach(word => {
+                width += word.length * wordWidth
+                width += spaceWidth
+            });
+    
+            width = Math.max(width, minWidth);
+    
+            document.getElementById('toDoToDo6').style.width = width + 'px';
+            document.getElementById('toDoToDo6').value = textarea.value;
+        }
+    
+        function showInput6() {
+            var textArea = document.getElementById('toDo6');
+            if (textArea.value.length > 0) {
+                document.getElementById('toDoLabel6').style.display = 'flex';
+                document.getElementById('label6').style.display = 'none';
+            }
+        }
+    
+        function hide6() {
+            document.getElementById('toDoLabel6').style.display = 'none';
+            document.getElementById('label6').style.display = 'flex';
+        }
+
+
+
+
+
+
+
+
+
+        // Functions for seventh to-do div
+        function autoResize7(textarea) {
+            const words = textarea.value.trim().split(/\s+/);
+            const wordWidth = 10;
+            const spaceWidth = 0;
+            const minWidth = 400;
+    
+            let width = minWidth;
+    
+            words.forEach(word => {
+                width += word.length * wordWidth
+                width += spaceWidth
+            });
+    
+            width = Math.max(width, minWidth);
+    
+            document.getElementById('toDoToDo7').style.width = width + 'px';
+            document.getElementById('toDoToDo7').value = textarea.value;
+        }
+    
+        function showInput7() {
+            var textArea = document.getElementById('toDo7');
+            if (textArea.value.length > 0) {
+                document.getElementById('toDoLabel7').style.display = 'flex';
+                document.getElementById('label7').style.display = 'none';
+            }
+        }
+    
+        function hide7() {
+            document.getElementById('toDoLabel7').style.display = 'none';
+            document.getElementById('label7').style.display = 'flex';
+        }
+
+
+
+
+
+
+
+
+
+        // Functions for eighth to-do div
+        function autoResize8(textarea) {
+            const words = textarea.value.trim().split(/\s+/);
+            const wordWidth = 10;
+            const spaceWidth = 0;
+            const minWidth = 400;
+    
+            let width = minWidth;
+    
+            words.forEach(word => {
+                width += word.length * wordWidth
+                width += spaceWidth
+            });
+    
+            width = Math.max(width, minWidth);
+    
+            document.getElementById('toDoToDo8').style.width = width + 'px';
+            document.getElementById('toDoToDo8').value = textarea.value;
+        }
+    
+        function showInput8() {
+            var textArea = document.getElementById('toDo8');
+            if (textArea.value.length > 0) {
+                document.getElementById('toDoLabel8').style.display = 'flex';
+                document.getElementById('label8').style.display = 'none';
+            }
+        }
+    
+        function hide8() {
+            document.getElementById('toDoLabel8').style.display = 'none';
+            document.getElementById('label8').style.display = 'flex';
+        }
+
+
+
+
+
+
+
+
+
+        // Functions for ninth to-do div
+        function autoResize9(textarea) {
+            const words = textarea.value.trim().split(/\s+/);
+            const wordWidth = 10;
+            const spaceWidth = 0;
+            const minWidth = 400;
+    
+            let width = minWidth;
+    
+            words.forEach(word => {
+                width += word.length * wordWidth
+                width += spaceWidth
+            });
+    
+            width = Math.max(width, minWidth);
+    
+            document.getElementById('toDoToDo9').style.width = width + 'px';
+            document.getElementById('toDoToDo9').value = textarea.value;
+        }
+    
+        function showInput9() {
+            var textArea = document.getElementById('toDo9');
+            if (textArea.value.length > 0) {
+                document.getElementById('toDoLabel9').style.display = 'flex';
+                document.getElementById('label9').style.display = 'none';
+            }
+        }
+    
+        function hide9() {
+            document.getElementById('toDoLabel9').style.display = 'none';
+            document.getElementById('label9').style.display = 'flex';
+        }
+
+
+
+
+
+
+
+
+
+        // Functions for tenth to-do div
+        function autoResize10(textarea) {
+            const words = textarea.value.trim().split(/\s+/);
+            const wordWidth = 10;
+            const spaceWidth = 0;
+            const minWidth = 400;
+    
+            let width = minWidth;
+    
+            words.forEach(word => {
+                width += word.length * wordWidth
+                width += spaceWidth
+            });
+    
+            width = Math.max(width, minWidth);
+    
+            document.getElementById('toDoToDo10').style.width = width + 'px';
+            document.getElementById('toDoToDo10').value = textarea.value;
+        }
+    
+        function showInput10() {
+            var textArea = document.getElementById('toDo10');
+            if (textArea.value.length > 0) {
+                document.getElementById('toDoLabel10').style.display = 'flex';
+                document.getElementById('label10').style.display = 'none';
+            }
+        }
+    
+        function hide10() {
+            document.getElementById('toDoLabel10').style.display = 'none';
+            document.getElementById('label10').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
